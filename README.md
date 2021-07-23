@@ -1,1 +1,2 @@
-# Simple Finance - Backend
+# simple-finance-backend
+Simple Finance - Backend
