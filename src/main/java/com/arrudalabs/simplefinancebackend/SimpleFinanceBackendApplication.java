@@ -4,6 +4,7 @@ import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,9 +21,11 @@ public class SimpleFinanceBackendApplication {
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 class HelloController {
 
 	@GetMapping("/hello")
+	@CrossOrigin("*")
 	public ResponseEntity<?> hello(
 		@RequestParam("quem") String param){
 		return ResponseEntity.ok(Map.of("message", "Olá " + param));
