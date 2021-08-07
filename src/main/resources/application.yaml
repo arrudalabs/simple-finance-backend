@@ -1,0 +1,9 @@
+springdoc:
+  cache:
+    disable: true
+  api-docs:
+    enable: false
+  swagger-ui:
+    url: /openapi.yaml
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
