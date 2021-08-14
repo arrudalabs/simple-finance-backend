@@ -19,12 +19,12 @@ externalDocs:
 paths:
   /api/login:
     post:
-      summary: Efetua Login
+      summary: Sign in
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Credenciais'
+              $ref: '#/components/schemas/Credentials'
       responses:
         200:
           description: Ok
@@ -33,15 +33,101 @@ paths:
               schema:
                 $ref: '#/components/schemas/Token'
         default:
-          description: Requisição inválida
+          description: Invalid request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Erros'
+                $ref: '#/components/schemas/Errors'
 
+  /api/categories:
+    get:
+      description: Retrives a list of categories
+      responses:
+        200:
+          description: Category List
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryList'
+        default:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+    post:
+      description: Add a new category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCategory'
+      responses:
+        201:
+          description: Retrieves the created category
+          headers:
+            Location:
+              description: the relative URL of the new category
+              schema:
+                type: string
+                format: url
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        default:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  /api/categories/{id}:
+    get:
+      parameters: 
+        - name: id
+          description: Category ID
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        200:
+          description: Retrieves the category by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        
 components:
   schemas:
-    Erros:
+    NewCategory:
+      type: object
+      properties:
+        type:
+          type: string
+          format: enum
+          enum: ['CREDIT','DEBIT']
+        description:
+          type: string
+      
+    Category:
+      type: object
+      properties:
+        id:
+          type: number
+        type:
+          type: string
+          format: enum
+          enum: ['CREDIT','DEBIT']
+        description:
+          type: string
+          
+    CategoryList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Category' 
+         
+    Errors:
       type: object
       properties:
         mensagens:
@@ -49,7 +135,7 @@ components:
           items:
             type: string
 
-    Credenciais:
+    Credentials:
       type: object
       properties:
         email:
