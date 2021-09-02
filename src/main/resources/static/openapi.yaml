@@ -19,7 +19,7 @@ externalDocs:
 paths:
   /api/login:
     post:
-      summary: Sign in
+      summary: Log in
       requestBody:
         content:
           application/json:
@@ -32,6 +32,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Token'
+        default:
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+
+  /api/registration:
+    post:
+      summary: Sign in
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewRegistration'
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         default:
           description: Invalid request
           content:
@@ -83,7 +105,7 @@ paths:
                 $ref: '#/components/schemas/Errors'
   /api/categories/{id}:
     get:
-      parameters: 
+      parameters:
         - name: id
           description: Category ID
           in: path
@@ -97,9 +119,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Category'
-        
+
 components:
   schemas:
+    NewRegistration:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        emailConfirmation:
+          type: string
+          format: email
+        password:
+          type: string
+        passwordConfirmation:
+          type: string
+      required:
+        - name
+        - email
+        - emailConfirmation
+        - password
+        - passwordConfirmation
+
+    User:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+
+
     NewCategory:
       type: object
       properties:
@@ -109,7 +165,7 @@ components:
           enum: ['CREDIT','DEBIT']
         description:
           type: string
-      
+
     Category:
       type: object
       properties:
@@ -121,12 +177,12 @@ components:
           enum: ['CREDIT','DEBIT']
         description:
           type: string
-          
+
     CategoryList:
       type: array
       items:
-        $ref: '#/components/schemas/Category' 
-         
+        $ref: '#/components/schemas/Category'
+
     Errors:
       type: object
       properties:
