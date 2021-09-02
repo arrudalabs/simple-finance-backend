@@ -1,22 +1,31 @@
-package com.arrudalabs.simplefinancebackend.dto;
+package com.arrudalabs.simplefinancebackend.entities;
 
-public class NewRegistrationDTO {
+import javax.persistence.*;
 
-    //Construtor
-    public NewRegistrationDTO() {
-    }
-
-    public NewRegistrationDTO(NewRegistration)
+@Entity
+@Table
+public class NewRegistration {
 
     //atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
     private String email;
     private String password;
     private String confirmationEmail;
     private String confirmationPassword;
 
+    //getters - setter
+    public Long getId() {
+        return id;
+    }
 
-    //Getters - Setter
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
