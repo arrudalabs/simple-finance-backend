@@ -1,12 +1,24 @@
 package com.arrudalabs.simplefinancebackend.dto;
 
+import javax.persistence.Entity;
+
+import com.arrudalabs.simplefinancebackend.entities.NewRegistration;
+
+
 public class NewRegistrationDTO {
 
     //Construtor
     public NewRegistrationDTO() {
     }
-
-    public NewRegistrationDTO(NewRegistration)
+    
+    
+    public NewRegistrationDTO(NewRegistration entity) {
+    	this.name = entity.getName();
+    	this.email = entity.getEmail();
+    	this.confirmationEmail = entity.getConfirmationEmail();
+    	this.password = entity.getPassword();
+    	this.confirmationPassword = entity.getConfirmationPassword();
+    }
 
     //atributos
     private String name;
